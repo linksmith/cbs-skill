@@ -132,11 +132,14 @@ class CBSClient:
     def __exit__(self, exc_type, exc_val, exc_tb) -> None:
         self.session.close()
 
-    def _validate_table_id(self, table_id: str) -> None:
-        if not TABLE_ID_PATTERN.match(table_id):
+    def _validate_table_id(self, table_id: str) -> str:
+        """Validate and normalize table ID to uppercase."""
+        normalized = table_id.upper()
+        if not TABLE_ID_PATTERN.match(normalized):
             raise ValueError(
-                f"Invalid table_id '{table_id}'. Expected format: 5 digits + 3 uppercase letters (e.g., '84518NED')"
+                f"Invalid table_id '{table_id}'. Expected format: 5 digits + 3 letters (e.g., '84518NED')"
             )
+        return normalized
 
     def _get_json(
         self, url: str, params: Optional[dict] = None, timeout: float = DEFAULT_TIMEOUT
@@ -189,7 +192,7 @@ class CBSClient:
         # Download full catalog (cached after first call)
         if not hasattr(self, "_catalog_cache"):
             print("Downloading CBS table catalog (one-time)...")
-            url = f"{self.base_url}?$format=json"
+            url = f"{self.base_url}/Datasets?$format=json"
             self._catalog_cache = self._paginate(url)
 
         catalog = self._catalog_cache.copy()
@@ -197,7 +200,7 @@ class CBSClient:
         # Search across title and summary
         terms = query.lower().split()
         mask = pd.Series([True] * len(catalog))
-        search_cols = ["Title", "ShortTitle", "Summary"]
+        search_cols = ["Title", "Description", "ShortTitle"]
         available_cols = [c for c in search_cols if c in catalog.columns]
 
         for term in terms:
@@ -228,19 +231,19 @@ class CBSClient:
         Returns a TableMetadata object with measures, dimensions, and properties.
         Results are cached by table_id for the lifetime of the client instance.
         """
-        self._validate_table_id(table_id)
+        normalized_id = self._validate_table_id(table_id)
 
         if (
             use_cache
             and hasattr(self, "_metadata_cache")
-            and table_id in self._metadata_cache
+            and normalized_id in self._metadata_cache
         ):
-            return self._metadata_cache[table_id]
+            return self._metadata_cache[normalized_id]
 
         if not hasattr(self, "_metadata_cache"):
             self._metadata_cache = {}
 
-        table_url = f"{self.base_url}/{table_id}"
+        table_url = f"{self.base_url}/{normalized_id}"
 
         props = {}
         try:
@@ -275,7 +278,7 @@ class CBSClient:
             warnings.warn(f"Failed to discover dimensions for {table_id}: {e}")
 
         result = TableMetadata(
-            table_id=table_id,
+            table_id=normalized_id,
             title=props.get("Title", ""),
             description=props.get("Description", ""),
             status=props.get("Status", ""),
@@ -284,7 +287,7 @@ class CBSClient:
             dimensions=dimensions,
             raw_properties=props,
         )
-        self._metadata_cache[table_id] = result
+        self._metadata_cache[normalized_id] = result
         return result
 
     # -------------------------------------------------------------------
@@ -312,8 +315,8 @@ class CBSClient:
         Returns:
             pandas DataFrame with the data
         """
-        self._validate_table_id(table_id)
-        url = f"{self.base_url}/{table_id}/Observations"
+        normalized_id = self._validate_table_id(table_id)
+        url = f"{self.base_url}/{normalized_id}/Observations"
         params = {}
 
         # Build filter string
@@ -437,6 +440,7 @@ class CBSClient:
             '2023JJ00' → (date(2023, 1, 1), 'year')
             '2023KW01' → (date(2023, 1, 1), 'quarter')
             '2023MM06' → (date(2023, 6, 1), 'month')
+            '2023X000' → (date(2023, 1, 1), 'half-year')
 
         Returns:
             Tuple of (date, frequency_str) or (None, None) if invalid.
@@ -445,7 +449,7 @@ class CBSClient:
             return None, None
 
         code = str(period_code).strip()
-        match = re.match(r"(\d{4})([A-Z]{2})(\d{2})", code)
+        match = re.match(r"(\d{4})([A-Z]{2}|[A-Z]0)(\d{2})", code)
         if not match:
             return None, None
 
@@ -470,6 +474,17 @@ class CBSClient:
                 )
                 return None, None
             return date(year, num, 1), "month"
+        elif freq == "X0":
+            if num == 0:
+                return date(year, 1, 1), "half-year"
+            elif num in (1, 2):
+                month = (num - 1) * 6 + 1
+                return date(year, month, 1), "half-year"
+            else:
+                warnings.warn(
+                    f"Invalid half-year number {num} in period code '{period_code}'"
+                )
+                return None, None
         else:
             return date(year, 1, 1), f"other ({freq})"
 
@@ -540,13 +555,13 @@ class CBSClient:
         Returns:
             pandas DataFrame in wide format (named columns)
         """
-        self._validate_table_id(table_id)
-        url = f"{CBS_ODATA_V3_FEED}/{table_id}/TypedDataSet"
+        normalized_id = self._validate_table_id(table_id)
+        url = f"{CBS_ODATA_V3_FEED}/{normalized_id}/TypedDataSet"
         params = {}
         if filters:
             params["$filter"] = filters
 
-        print(f"Downloading {table_id} via OData v3 Feed...")
+        print(f"Downloading {normalized_id} via OData v3 Feed...")
         return self._paginate(url, params=params)
 
 
