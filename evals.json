@@ -1,0 +1,35 @@
+{
+  "skill_name": "cbs-statline-hackathon",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I want to find out if wealthy neighbourhoods in the Netherlands have more solar panels. Can you help me get the data?",
+      "expected_output": "Should identify tables 84518NED and 83765NED, explain the join on WijkenEnBuurten, and produce runnable Python code that downloads both datasets, joins them, and creates a scatter plot of income vs solar adoption.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Which CBS tables have data about gas-free homes? Show me what's available and download the latest figures per gemeente.",
+      "expected_output": "Should consult table registry, identify 84838NED as the primary table, show metadata inspection, and produce code that downloads gemeente-level gas-free percentages with human-readable labels.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I'm a journalist and I want to write about energy poverty. What data story angles can I explore with CBS data about housing and energy?",
+      "expected_output": "Should reference analysis-recipes.md, suggest 2-3 specific story angles with table combinations, and explain what each would reveal. Should mention the energy label gap between rental and owner-occupied housing, the solar divide, and gas consumption by building age.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Make me a map of solar panel adoption per gemeente in the Netherlands.",
+      "expected_output": "Should produce complete Python code that: (1) downloads solar data from 85005NED, (2) downloads gemeente boundaries from PDOK, (3) joins them, (4) creates a choropleth map. Should include CBS attribution.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "What's the CBS table for housing stock by ownership type? Is it still being updated?",
+      "expected_output": "Should identify 82900NED, explain that it's being deprecated in 2026 due to methodology changes, and warn that new replacement tables are coming. Should still show how to use it for historical analysis.",
+      "files": []
+    }
+  ]
+}
