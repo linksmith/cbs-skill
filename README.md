@@ -38,7 +38,7 @@ pip install requests pandas
 If you use the [Vercel Skills CLI](https://github.com/vercel-labs/skills), this works across 40+ agents:
 
 ```bash
-npx skills add linksmith/cbs-skill
+npx skills add linksmith/cbs-statline-skill
 ```
 
 See below for tool-specific instructions.
@@ -48,26 +48,26 @@ See below for tool-specific instructions.
 **Option 1: Clone to Cursor rules directory**
 
 ```bash
-git clone https://github.com/linksmith/cbs-skill.git ~/.cursor/rules/cbs-skill
+git clone https://github.com/linksmith/cbs-statline-skill.git ~/.cursor/rules/cbs-statline-skill
 ```
 
 **Option 2: Add to project `.cursorrules`**
 
 ```bash
 # In your project root
-curl -L https://raw.githubusercontent.com/linksmith/cbs-skill/main/SKILL.md -o .cursorrules
+curl -L https://raw.githubusercontent.com/linksmith/cbs-statline-skill/main/SKILL.md -o .cursorrules
 ```
 
 **Option 3: Project-level installation**
 
 ```bash
 # Clone into your project
-git clone https://github.com/linksmith/cbs-skill.git .cursor/cbs-skill
+git clone https://github.com/linksmith/cbs-statline-skill.git .cursor/cbs-statline-skill
 ```
 
 Then reference in `.cursorrules`:
 ```
-Use the CBS StatLine skill in .cursor/cbs-skill/ for all Dutch housing and energy data queries.
+Use the CBS StatLine skill in .cursor/cbs-statline-skill/ for all Dutch housing and energy data queries.
 ```
 
 ### Windsurf (Codeium)
@@ -75,14 +75,14 @@ Use the CBS StatLine skill in .cursor/cbs-skill/ for all Dutch housing and energ
 **Option 1: Global rules**
 
 ```bash
-git clone https://github.com/linksmith/cbs-skill.git ~/.windsurf/rules/cbs-skill
+git clone https://github.com/linksmith/cbs-statline-skill.git ~/.windsurf/rules/cbs-statline-skill
 ```
 
 **Option 2: Project-level**
 
-Create `.windsurf/rules/cbs-skill.md` in your project:
+Create `.windsurf/rules/cbs-statline-skill.md` in your project:
 ```bash
-curl -L https://raw.githubusercontent.com/linksmith/cbs-skill/main/SKILL.md -o .windsurf/rules/cbs-skill.md
+curl -L https://raw.githubusercontent.com/linksmith/cbs-statline-skill/main/SKILL.md -o .windsurf/rules/cbs-statline-skill.md
 ```
 
 ### Claude Code / Open Code / Kilo Code
@@ -92,7 +92,7 @@ All three tools support the same plugin format:
 **Option 1: Install as a plugin** (recommended, no npm/node required)
 
 ```bash
-claude plugin install --from https://github.com/linksmith/cbs-skill
+claude plugin install --from https://github.com/linksmith/cbs-statline-skill
 ```
 
 Replace `claude` with `open` or `kilo` depending on your tool.
@@ -101,15 +101,15 @@ Replace `claude` with `open` or `kilo` depending on your tool.
 
 ```bash
 mkdir -p .claude/skills
-git clone https://github.com/linksmith/cbs-skill.git .claude/skills/cbs-skill
+git clone https://github.com/linksmith/cbs-statline-skill.git .claude/skills/cbs-statline-skill
 ```
 
 **Option 3: Add as a slash command**
 
 ```bash
 mkdir -p .claude/commands
-curl -L https://raw.githubusercontent.com/linksmith/cbs-skill/main/skills/cbs-skill/SKILL.md \
-  -o .claude/commands/cbs-skill.md
+curl -L https://raw.githubusercontent.com/linksmith/cbs-statline-skill/main/skills/cbs-statline-skill/SKILL.md \
+  -o .claude/commands/cbs-statline-skill.md
 ```
 
 ### Cline (VS Code Extension)
@@ -117,19 +117,19 @@ curl -L https://raw.githubusercontent.com/linksmith/cbs-skill/main/skills/cbs-sk
 **Option 1: Add to .clinerules**
 
 ```bash
-curl -L https://raw.githubusercontent.com/linksmith/cbs-skill/main/SKILL.md -o .clinerules
+curl -L https://raw.githubusercontent.com/linksmith/cbs-statline-skill/main/SKILL.md -o .clinerules
 ```
 
 **Option 2: Workspace settings**
 
 1. Clone the skill to your workspace:
 ```bash
-git clone https://github.com/linksmith/cbs-skill.git .cline/cbs-skill
+git clone https://github.com/linksmith/cbs-statline-skill.git .cline/cbs-statline-skill
 ```
 
 2. In VS Code settings, add to `cline.customInstructions`:
 ```
-Use CBS StatLine skill for Dutch housing/energy data. See .cline/cbs-skill/SKILL.md
+Use CBS StatLine skill for Dutch housing/energy data. See .cline/cbs-statline-skill/SKILL.md
 ```
 
 ### Roo Code (VS Code Extension)
@@ -137,7 +137,7 @@ Use CBS StatLine skill for Dutch housing/energy data. See .cline/cbs-skill/SKILL
 **Option 1: Add to .roorules**
 
 ```bash
-curl -L https://raw.githubusercontent.com/linksmith/cbs-skill/main/SKILL.md -o .roorules
+curl -L https://raw.githubusercontent.com/linksmith/cbs-statline-skill/main/SKILL.md -o .roorules
 ```
 
 **Option 2: Custom instructions**
@@ -145,7 +145,7 @@ curl -L https://raw.githubusercontent.com/linksmith/cbs-skill/main/SKILL.md -o .
 In VS Code, open Roo Code settings and add to Custom Instructions:
 ```
 For CBS StatLine Dutch data queries, reference the skill at:
-https://github.com/linksmith/cbs-skill
+https://github.com/linksmith/cbs-statline-skill
 
 Download cbs_client.py and table-registry.md for data access.
 ```
@@ -156,19 +156,19 @@ Download cbs_client.py and table-registry.md for data access.
 
 ```bash
 # Clone to a location aider can access
-git clone https://github.com/linksmith/cbs-skill.git ~/skills/cbs-skill
+git clone https://github.com/linksmith/cbs-statline-skill.git ~/skills/cbs-statline-skill
 
 # Add to your aider session
-aider --read ~/skills/cbs-skill/SKILL.md ~/skills/cbs-skill/table-registry.md
+aider --read ~/skills/cbs-statline-skill/SKILL.md ~/skills/cbs-statline-skill/table-registry.md
 ```
 
 **Option 2: Add to .aider.conf.yml**
 
 ```yaml
 read:
-  - ~/skills/cbs-skill/SKILL.md
-  - ~/skills/cbs-skill/table-registry.md
-  - ~/skills/cbs-skill/cbs_client.py
+  - ~/skills/cbs-statline-skill/SKILL.md
+  - ~/skills/cbs-statline-skill/table-registry.md
+  - ~/skills/cbs-statline-skill/cbs_client.py
 ```
 
 ### OpenHands
@@ -176,7 +176,7 @@ read:
 **Option 1: Add to workspace**
 
 ```bash
-git clone https://github.com/linksmith/cbs-skill.git .openhands/cbs-skill
+git clone https://github.com/linksmith/cbs-statline-skill.git .openhands/cbs-statline-skill
 ```
 
 **Option 2: Custom instructions**
@@ -184,7 +184,7 @@ git clone https://github.com/linksmith/cbs-skill.git .openhands/cbs-skill
 Add to `.openhands/instructions.md`:
 ```
 For CBS StatLine Dutch housing and energy data:
-1. Read .openhands/cbs-skill/SKILL.md for workflow
+1. Read .openhands/cbs-statline-skill/SKILL.md for workflow
 2. Use cbs_client.py for data access
 3. Reference table-registry.md for available tables
 ```
@@ -194,13 +194,13 @@ For CBS StatLine Dutch housing and energy data:
 **Option 1: Add to Goose extensions**
 
 ```bash
-git clone https://github.com/linksmith/cbs-skill.git ~/.goose/extensions/cbs-skill
+git clone https://github.com/linksmith/cbs-statline-skill.git ~/.goose/extensions/cbs-statline-skill
 ```
 
 **Option 2: Add instruction file**
 
 ```bash
-curl -L https://raw.githubusercontent.com/linksmith/cbs-skill/main/SKILL.md -o ~/.goose/instructions/cbs-skill.md
+curl -L https://raw.githubusercontent.com/linksmith/cbs-statline-skill/main/SKILL.md -o ~/.goose/instructions/cbs-statline-skill.md
 ```
 
 ### GitHub Copilot
@@ -209,7 +209,7 @@ curl -L https://raw.githubusercontent.com/linksmith/cbs-skill/main/SKILL.md -o ~
 
 ```bash
 mkdir -p .github
-curl -L https://raw.githubusercontent.com/linksmith/cbs-skill/main/SKILL.md -o .github/copilot-instructions.md
+curl -L https://raw.githubusercontent.com/linksmith/cbs-statline-skill/main/SKILL.md -o .github/copilot-instructions.md
 ```
 
 **Option 2: Reference in VS Code settings**
@@ -231,14 +231,14 @@ For any AI assistant that supports custom instructions or context files:
 
 1. Download the SKILL.md file:
 ```bash
-curl -L https://raw.githubusercontent.com/linksmith/cbs-skill/main/SKILL.md -o cbs-skill-instructions.md
+curl -L https://raw.githubusercontent.com/linksmith/cbs-statline-skill/main/SKILL.md -o cbs-statline-skill-instructions.md
 ```
 
 2. Paste the contents into your AI assistant's custom instructions or system prompt.
 
 3. For code generation, also download `cbs_client.py`:
 ```bash
-curl -L https://raw.githubusercontent.com/linksmith/cbs-skill/main/cbs_client.py -o cbs_client.py
+curl -L https://raw.githubusercontent.com/linksmith/cbs-statline-skill/main/cbs_client.py -o cbs_client.py
 ```
 
 ## Usage
@@ -276,11 +276,11 @@ with CBSClient() as client:
 ## Skill Structure
 
 ```
-cbs-skill/
+cbs-statline-skill/
 ├── .claude-plugin/
 │   └── plugin.json           # Plugin manifest for Claude/Open/Kilo Code
 ├── skills/
-│   └── cbs-skill/
+│   └── cbs-statline-skill/
 │       └── SKILL.md          # Main skill definition with workflow
 ├── scripts/
 │   └── cbs_client.py         # Python helper module for CBS OData v4 API
@@ -361,8 +361,8 @@ MIT License — see [LICENSE](LICENSE) for details.
 
 Contributions welcome! Please feel free to submit issues or pull requests.
 
-- **Issue Tracker:** https://github.com/linksmith/cbs-skill/issues
-- **Pull Requests:** https://github.com/linksmith/cbs-skill/pulls
+- **Issue Tracker:** https://github.com/linksmith/cbs-statline-skill/issues
+- **Pull Requests:** https://github.com/linksmith/cbs-statline-skill/pulls
 
 ## Resources
 
