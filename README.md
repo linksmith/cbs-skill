@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A Kilo skill for data journalism hackathons using CBS StatLine open data, focused on housing (woningen) and energy transition (energietransitie) in the Netherlands.
+An AI agent skill for data journalism hackathons using CBS StatLine open data, focused on housing (woningen) and energy transition (energietransitie) in the Netherlands. Works with Claude Code, Open Code, Kilo Code, Cursor, Windsurf, Cline, Aider, and 40+ other AI coding tools.
 
 ## Overview
 
@@ -33,25 +33,15 @@ The Python helper module requires:
 pip install requests pandas
 ```
 
-### Kilo
+### Quick Install (Any Agent)
 
-**Option 1: Install from zip package**
-
-```bash
-# Download the latest release
-curl -LO https://github.com/linksmith/cbs-skill/releases/latest/download/cbs-skill.zip
-kilo skill install cbs-skill.zip
-```
-
-**Option 2: Clone directly**
+If you use the [Vercel Skills CLI](https://github.com/vercel-labs/skills), this works across 40+ agents:
 
 ```bash
-git clone https://github.com/linksmith/cbs-skill.git ~/.kilo/skills/cbs-statline-hackathon
+npx skills add linksmith/cbs-skill
 ```
 
-**Option 3: Manual installation**
-
-Copy the skill directory to `~/.kilo/skills/cbs-statline-hackathon/`.
+See below for tool-specific instructions.
 
 ### Cursor
 
@@ -95,21 +85,31 @@ Create `.windsurf/rules/cbs-skill.md` in your project:
 curl -L https://raw.githubusercontent.com/linksmith/cbs-skill/main/SKILL.md -o .windsurf/rules/cbs-skill.md
 ```
 
-### Claude Code (Anthropic)
+### Claude Code / Open Code / Kilo Code
 
-**Option 1: Add to CLAUDE.md**
+All three tools support the same plugin format:
+
+**Option 1: Install as a plugin** (recommended, no npm/node required)
 
 ```bash
-# In your project root
-mkdir -p .claude
-curl -L https://raw.githubusercontent.com/linksmith/cbs-skill/main/SKILL.md -o .claude/commands/cbs-skill.md
+claude plugin install --from https://github.com/linksmith/cbs-skill
 ```
 
-**Option 2: Global instructions**
+Replace `claude` with `open` or `kilo` depending on your tool.
 
-Add to `~/.claude/instructions.md`:
+**Option 2: Add as a project skill**
+
+```bash
+mkdir -p .claude/skills
+git clone https://github.com/linksmith/cbs-skill.git .claude/skills/cbs-statline-hackathon
 ```
-For Dutch CBS StatLine data queries, use the CBS skill from https://github.com/linksmith/cbs-skill
+
+**Option 3: Add as a slash command**
+
+```bash
+mkdir -p .claude/commands
+curl -L https://raw.githubusercontent.com/linksmith/cbs-skill/main/skills/cbs-statline-hackathon/SKILL.md \
+  -o .claude/commands/cbs-skill.md
 ```
 
 ### Cline (VS Code Extension)
@@ -276,14 +276,20 @@ with CBSClient() as client:
 ## Skill Structure
 
 ```
-cbs-statline-hackathon/
-├── SKILL.md              # Main skill definition with workflow
-├── cbs_client.py         # Python helper module for CBS OData v4 API
-├── table-registry.md     # Curated list of ~35 vetted tables with join keys
-├── analysis-recipes.md   # Story templates for data journalism
-├── odata-v4-guide.md     # OData v4 API patterns and filtering
-├── geo-pdok.md           # Geographic visualization with PDOK
-└── evals.json            # Evaluation prompts for skill testing
+cbs-skill/
+├── .claude-plugin/
+│   └── plugin.json           # Plugin manifest for Claude/Open/Kilo Code
+├── skills/
+│   └── cbs-statline-hackathon/
+│       └── SKILL.md          # Main skill definition with workflow
+├── scripts/
+│   └── cbs_client.py         # Python helper module for CBS OData v4 API
+├── SKILL.md                  # Root copy (for tools that expect it here)
+├── table-registry.md         # Curated list of ~35 vetted tables with join keys
+├── analysis-recipes.md       # Story templates for data journalism
+├── odata-v4-guide.md         # OData v4 API patterns and filtering
+├── geo-pdok.md               # Geographic visualization with PDOK
+└── evals.json                # Evaluation prompts for skill testing
 ```
 
 ## Features

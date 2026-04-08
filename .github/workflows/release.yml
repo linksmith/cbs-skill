@@ -1,0 +1,36 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build zip package
+        run: |
+          zip -r cbs-skill.zip \
+            SKILL.md \
+            skills/ \
+            scripts/ \
+            .claude-plugin/ \
+            table-registry.md \
+            analysis-recipes.md \
+            odata-v4-guide.md \
+            geo-pdok.md \
+            evals.json \
+            LICENSE \
+            README.md
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: cbs-skill.zip
+          generate_release_notes: true
