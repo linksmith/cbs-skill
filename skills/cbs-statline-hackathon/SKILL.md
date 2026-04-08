@@ -126,6 +126,56 @@ Several key housing tables are being replaced due to methodology changes:
 Always check the `status` field in the table registry and warn the user
 about deprecated tables.
 
+## Environment setup
+
+Many users will have a minimal dev environment (Python via uv, Node via Vite).
+Before generating any code, the agent MUST detect the setup and adapt.
+
+### Python detection
+
+Run these checks silently before the first code block:
+
+1. **Detect package manager**: check if `uv` is available (`which uv`). If yes,
+   use `uv` commands. Fall back to `pip` / `pip3` only if `uv` is not found.
+2. **Detect Python command**: try `python3 --version` first, then `python --version`.
+   macOS may not have a `python` command at all. Use whichever works.
+3. **Virtual environment**: if no venv is active (`echo $VIRTUAL_ENV` is empty),
+   create one before installing anything:
+   - With uv: `uv venv && source .venv/bin/activate`
+   - Without uv: `python3 -m venv .venv && source .venv/bin/activate`
+
+### Installing dependencies
+
+Always install into a venv. Never use `sudo pip install`.
+
+```bash
+# Preferred (uv)
+uv pip install requests pandas
+
+# Fallback (pip)
+pip install requests pandas
+```
+
+For visualisation tasks, also install plotting libraries:
+```bash
+# Preferred (uv)
+uv pip install matplotlib plotly
+
+# Fallback (pip)
+pip install matplotlib plotly
+```
+
+### Common beginner pitfalls to handle
+
+- **`ModuleNotFoundError`**: the venv is not activated, or packages were
+  installed in a different environment. Re-activate and reinstall.
+- **`command not found: python`**: use `python3` instead.
+- **`pip: command not found`**: use `uv pip` or `python3 -m pip`.
+- **Permission errors on install**: user is not in a venv. Create one first.
+- **SSL certificate errors on macOS**: run
+  `open /Applications/Python\ 3.*/Install\ Certificates.command` or use uv
+  which bundles its own certificates.
+
 ## Helper module
 
 The skill includes `scripts/cbs_client.py` — a self-contained Python module
@@ -137,13 +187,31 @@ for CBS OData v4 access. It handles:
 - Period code parsing
 - Region code normalisation
 
-Install dependencies: `pip install requests pandas`
+### Importing the helper
 
-Always import it at the start of any generated code:
+The helper module lives at `scripts/cbs_client.py` relative to this skill's
+root directory. The agent must locate it at runtime. Strategy:
+
+1. **Find the skill directory**: search for `cbs_client.py` in the project
+   tree. Common locations depending on the tool:
+   - `.claude/skills/cbs-statline-hackathon/scripts/` (Claude Code, Open Code, Kilo Code)
+   - `.cursor/cbs-skill/scripts/` (Cursor)
+   - `.cline/cbs-skill/scripts/` (Cline)
+   - Project root `scripts/` or `cbs_client.py` at root (standalone clone)
+2. **Copy to the working directory**: to avoid fragile path hacks, copy
+   `cbs_client.py` into the user's working directory if it's not already there.
+   This is the most robust approach across all tools.
+
+Generated code should always use a simple import:
 ```python
-import sys
-sys.path.insert(0, "path/to/cbs-statline-hackathon/scripts")
 from cbs_client import CBSClient
+```
+
+If `cbs_client.py` is not in the working directory, copy it there first:
+```bash
+cp <path-to-skill>/scripts/cbs_client.py .
+# or
+cp <path-to-skill>/cbs_client.py .
 ```
 
 ## Output format
