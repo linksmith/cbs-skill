@@ -257,3 +257,80 @@ These are the highest-value cross-table analyses:
 - **Join on**: WijkenEnBuurten + Perioden
 - **Story**: "Map of energy transition readiness by neighbourhood, combining income, solar, and gas-free status"
 - **Difficulty**: ⭐⭐⭐ (hard — three tables, large datasets, need careful filtering)
+
+---
+
+## OTHER THEMES — Starter Tables
+
+The tables above are deeply curated for housing × energy. The tables below
+are starting points for other popular CBS themes. They are lightly annotated —
+use `search_tables()` to find more tables within each theme.
+
+### Bevolking (Demographics)
+
+| ID | Title | Geo level | Notes |
+|---|---|---|---|
+| `03759ned` | Bevolking op 1 januari; geslacht, leeftijd en regio | Gemeente | Core population table — age, gender by region |
+| `83474NED` | Bevolkingsontwikkeling; maand en jaar | National | Births, deaths, migration — monthly time series |
+| `37259ned` | Bevolkingsontwikkeling; levend geborenen, overledenen en migratie per regio | Gemeente | Regional population change: births, deaths, migration |
+| `7461bev` | Bevolking; geslacht, leeftijd en burgerlijke staat | National | Long time series on marital status and age structure |
+| `70072ned` | Regionale kerncijfers Nederland | Gemeente | Broad regional summary — population, jobs, income, land use |
+
+### Arbeid & Inkomen (Labour & Income)
+
+| ID | Title | Geo level | Notes |
+|---|---|---|---|
+| `80590ned` | Arbeidsdeelname en werkloosheid per maand | National | Monthly unemployment and labour participation |
+| `85271NED` | Beroeps- en niet-beroepsbevolking; gemiddeld inkomen en arbeidspositie | National | Income by employment status |
+| `85064NED` | Inkomen van huishoudens; huishoudenskenmerken, regio | Gemeente | Household income by region — key for inequality analysis |
+| `82016NED` | Personen met bijstand; persoonskenmerken | Gemeente | Social assistance recipients by demographics and region |
+
+### Gezondheid & Zorg (Health & Care)
+
+| ID | Title | Geo level | Notes |
+|---|---|---|---|
+| `81628NED` | Gezondheid, leefstijl, zorggebruik en -aanbod, doodsoorzaken; kerncijfers | National | Broad health overview — long time series from 1900 |
+| `80202ned` | Overledenen; belangrijke doodsoorzaken, regio | Gemeente | Causes of death by region |
+| `85576NED` | Welzijn in relatie met gezondheid en leefstijl | National | Wellbeing, lifestyle and health connections |
+
+### Onderwijs (Education)
+
+| ID | Title | Geo level | Notes |
+|---|---|---|---|
+| `85380NED` | Vo; leerlingen, onderwijssoort, leerjaar, woonregio | Gemeente | Secondary school pupils by type, year, region |
+| `71478ned` | (Speciaal) basisonderwijs en speciale scholen; leerlingen, schoolregio | Gemeente | Primary school pupils by school region |
+| `85124NED` | Hoger onderwijs; internationale studenten, nationaliteit | National | International students in higher education |
+
+### Veiligheid (Crime & Safety)
+
+| ID | Title | Geo level | Notes |
+|---|---|---|---|
+| `83648NED` | Geregistreerde criminaliteit; soort misdrijf, regio | Gemeente | Registered crime by type and region — the main crime table |
+
+### Landbouw (Agriculture)
+
+| ID | Title | Geo level | Notes |
+|---|---|---|---|
+| `80784ned` | Landbouw; arbeidskrachten naar regio | Gemeente | Agricultural workforce by region |
+| `80783ned` | Landbouw; gewassen, dieren en grondgebruik naar hoofdbedrijfstype, regio | Gemeente | Crops, livestock, land use by farm type and region |
+| `85853NED` | Biologische landbouw; gewassen, dieren, grondgebruik en arbeid | National | Organic farming — crops, animals, land use |
+
+### Verkeer & Vervoer (Transport)
+
+| ID | Title | Geo level | Notes |
+|---|---|---|---|
+| `85395NED` | Verkeersprestaties motorvoertuigen; kilometers, voertuigsoort, grondgebied | Provincie | Vehicle kilometres by type and territory |
+| `84710NED` | Mobiliteit; per persoon, vervoerwijzen, motieven, regio's | Landsdeel | Personal mobility — modes of transport, trip motives |
+| `85468NED` | Immigratie en emigratie; geslacht, leeftijd, geboorteland, regio | Gemeente | International migration flows by region |
+
+### Economie (Economy)
+
+| ID | Title | Geo level | Notes |
+|---|---|---|---|
+| `85865NED` | Opbouw binnenlands product (bbp); nationale rekeningen | National | GDP composition — national accounts |
+| `82522NED` | Faillissementen; bedrijven en instellingen, regio | Provincie | Business bankruptcies by region |
+| `82244NED` | Faillissementen; bedrijven en instellingen, SBI 2008 | National | Bankruptcies by industry sector |
+
+> **Tip**: These are just starting points. Use `client.search_tables("your topic")`
+> to discover all available CBS tables on any subject. The CBS catalog contains
+> 4,000+ tables covering virtually every aspect of Dutch society.

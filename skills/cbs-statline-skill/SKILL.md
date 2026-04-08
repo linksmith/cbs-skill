@@ -44,8 +44,24 @@ Restate the user's question as a clear research hypothesis. Examples:
 
 ### Step 2: Identify tables
 
-Read `table-registry.md` and select 1–3 tables that can answer the
-question. Prioritise tables that:
+First check `table-registry.md` — it contains curated tables for housing,
+energy, and starter tables for demographics, labour, health, education,
+crime, agriculture, transport, and economy.
+
+If the user's question falls outside the registry, **search the full CBS
+catalog** using the helper module:
+
+```python
+from cbs_client import CBSClient
+client = CBSClient()
+results = client.search_tables("your search terms")
+print(results)  # shows table ID, title, and last modified date
+```
+
+The CBS catalog contains 4,000+ tables. Use Dutch keywords for best results
+(e.g. "werkloosheid" not "unemployment", "onderwijs" not "education").
+
+Select 1–3 tables that can answer the question. Prioritise tables that:
 - Share a **join key** (RegioS codes at the same geographic level)
 - Have overlapping **Perioden** (time periods)
 - Are **not deprecated** (check the `status` field in the registry)
