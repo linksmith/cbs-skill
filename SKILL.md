@@ -42,6 +42,34 @@ Restate the user's question as a data journalism hypothesis. Examples:
 - "Which municipalities are falling behind on gas-free housing targets?"
 - "Do homes with solar panels also have better energy labels?"
 
+### Step 1b: Create METHODE.md
+
+At the very start of every analysis, create a file called `METHODE.md` in the
+working directory. This is a living document that grows with each step. It
+serves as the single source of truth for reproducibility and verification.
+
+Start it with:
+```markdown
+# Methodologie
+
+## Onderzoeksvraag
+<the hypothesis from Step 1>
+
+## Databronnen
+<will be filled in Step 2>
+
+## Bewerkingen
+<will be filled in Step 4>
+
+## Aannames en beperkingen
+<will be filled in Step 5>
+
+## Verificatie
+<will be filled in Step 7>
+```
+
+Update `METHODE.md` at every subsequent step. Never wait until the end.
+
 ### Step 2: Identify tables
 
 Read `table-registry.md` and select 1–3 tables that can answer the
@@ -52,6 +80,14 @@ question. Prioritise tables that:
 
 Tell the user which tables you picked and why. Show the table ID, title, and
 what dimensions/measures are relevant.
+
+**Update METHODE.md — Databronnen**: for each table, document:
+- CBS table ID and full title
+- Direct URL: `https://opendata.cbs.nl/statline/#/CBS/nl/dataset/TABLE_ID`
+- Date of data retrieval
+- Data status (Definitief / Voorlopig)
+- Which dimensions and measures are used
+- Any filters applied (periods, regions)
 
 ### Step 3: Inspect metadata
 
@@ -78,6 +114,15 @@ Key processing steps (all handled by the helper module):
 3. **Period parsing**: Convert CBS period codes to Python dates
 4. **Cross-table joins**: Match on normalised RegioS + Perioden
 
+**Update METHODE.md — Bewerkingen**: document every transformation applied to
+the raw data. For each processing step, record:
+- What was done (e.g. "filtered to GM-level regions", "joined on RegioS")
+- Why it was done (e.g. "buurt-level data too granular for this question")
+- Row counts before and after (e.g. "84,302 rows → 388 rows after filter")
+- Any rows dropped and why (e.g. "12 rows with missing values removed")
+- Formulas or calculations used (e.g. "percentage = count / total * 100")
+- Join keys and join type (e.g. "inner join on RegioS + Perioden")
+
 ### Step 5: Analyse and find stories
 
 Read `analysis-recipes.md` for pre-built patterns. The best stories
@@ -87,10 +132,63 @@ come from **contrast and surprise** — look for:
 - Correlation between housing characteristics and energy metrics
 - Gaps between policy targets and reality
 
+**Update METHODE.md — Aannames en beperkingen**: document:
+- Assumptions made (e.g. "we assume provisional 2024 data is directionally correct")
+- Theories being tested and their basis
+- Statistical methods or algorithms used (e.g. "Pearson correlation", "year-over-year % change")
+- Known limitations (e.g. "CBS changed methodology in 2022, pre/post comparison is approximate")
+- What the data cannot tell you (e.g. "correlation does not imply causation")
+
 ### Step 6: Visualise
 
 For charts: use Plotly (interactive) or Matplotlib (static). For maps: read
 `geo-pdok.md` for PDOK geodata integration.
+
+### Step 7: Verify results
+
+This step is **mandatory**. Never skip it. After completing the analysis,
+the agent must verify its own work using `METHODE.md` as the reference.
+
+#### 7a: Self-verification
+
+Re-read `METHODE.md` and verify each section:
+
+1. **Data provenance check**: re-fetch a small sample from the CBS API and
+   compare it against the data used in the analysis. Do the numbers match?
+   If not, document why (e.g. data updated since retrieval, filter mismatch).
+2. **Calculation check**: pick 2–3 representative rows and manually
+   recalculate the derived values (percentages, aggregations, joins) step by
+   step. Show the manual calculation and compare against the script output.
+   If results differ, find and fix the bug.
+3. **Analysis sanity check**: review the findings against common sense and
+   domain knowledge. For example:
+   - Are percentages between 0–100%?
+   - Do totals add up?
+   - Are trends directionally plausible given known context?
+   - Do outliers have a plausible explanation?
+
+#### 7b: Document verification results
+
+**Update METHODE.md — Verificatie**: record:
+- What checks were performed
+- Sample values compared (expected vs actual)
+- Whether any discrepancies were found and how they were resolved
+- Confidence level in the results (high / medium / low) with justification
+
+#### 7c: Flag items for human review
+
+At the end of `METHODE.md`, add a section:
+
+```markdown
+## Te controleren door een specialist
+- [ ] <specific finding that should be reviewed by a domain expert>
+- [ ] <any statistical claim that warrants a second opinion>
+- [ ] <any data point that seemed surprising or counterintuitive>
+```
+
+Tell the user: these findings should ideally be reviewed by someone with
+domain expertise (e.g. a housing policy researcher, energy statistician, or
+experienced data journalist) before publication.
 
 ## Critical CBS knowledge
 
@@ -219,5 +317,11 @@ cp <path-to-skill>/cbs_client.py .
 For hackathon participants, always produce:
 1. **A clear data question** (the hypothesis)
 2. **Complete Python code** in a single script or notebook
-3. **A finding summary** (2–3 sentences a journalist could use as a lede)
-4. **Caveats** (data freshness, methodology notes, what the data can't tell you)
+3. **`METHODE.md`** — the full methodology document (data sources, processing,
+   assumptions, verification results, items for specialist review)
+4. **A finding summary** (2–3 sentences a journalist could use as a lede)
+5. **Caveats** (data freshness, methodology notes, what the data can't tell you)
+
+`METHODE.md` is a **required deliverable**, not optional. It is what makes
+the analysis reproducible and trustworthy. A data journalism story without
+documented methodology is not publishable.
