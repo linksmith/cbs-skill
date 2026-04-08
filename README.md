@@ -101,14 +101,14 @@ Replace `claude` with `open` or `kilo` depending on your tool.
 
 ```bash
 mkdir -p .claude/skills
-git clone https://github.com/linksmith/cbs-skill.git .claude/skills/cbs-statline-hackathon
+git clone https://github.com/linksmith/cbs-skill.git .claude/skills/cbs-skill
 ```
 
 **Option 3: Add as a slash command**
 
 ```bash
 mkdir -p .claude/commands
-curl -L https://raw.githubusercontent.com/linksmith/cbs-skill/main/skills/cbs-statline-hackathon/SKILL.md \
+curl -L https://raw.githubusercontent.com/linksmith/cbs-skill/main/skills/cbs-skill/SKILL.md \
   -o .claude/commands/cbs-skill.md
 ```
 
@@ -280,7 +280,7 @@ cbs-skill/
 ├── .claude-plugin/
 │   └── plugin.json           # Plugin manifest for Claude/Open/Kilo Code
 ├── skills/
-│   └── cbs-statline-hackathon/
+│   └── cbs-skill/
 │       └── SKILL.md          # Main skill definition with workflow
 ├── scripts/
 │   └── cbs_client.py         # Python helper module for CBS OData v4 API

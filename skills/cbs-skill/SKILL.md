@@ -1,5 +1,5 @@
 ---
-name: cbs-statline-hackathon
+name: cbs-skill
 description: "Skill for data journalism hackathons using CBS StatLine open data, focused on housing (woningen) and energy transition (energietransitie) in the Netherlands. Use this skill whenever the user wants to find, evaluate, download, analyse, or visualise CBS open data — especially tables about Dutch housing stock, energy labels, heat pumps, solar panels, gas-free homes, building permits, housing prices, or neighbourhood-level (wijk/buurt) statistics. Also trigger when the user mentions StatLine, CBS, OData, Dutch statistics, energielabel, warmtepomp, zonnepanelen, aardgasvrij, woningvoorraad, or any combination of housing and energy data for the Netherlands. This skill is designed for mixed audiences (journalists + coders) and generates complete, runnable Python code with explanations."
 ---
 repo: https://github.com/linksmith/cbs-skill
@@ -194,7 +194,7 @@ root directory. The agent must locate it at runtime. Strategy:
 
 1. **Find the skill directory**: search for `cbs_client.py` in the project
    tree. Common locations depending on the tool:
-   - `.claude/skills/cbs-statline-hackathon/scripts/` (Claude Code, Open Code, Kilo Code)
+   - `.claude/skills/cbs-skill/scripts/` (Claude Code, Open Code, Kilo Code)
    - `.cursor/cbs-skill/scripts/` (Cursor)
    - `.cline/cbs-skill/scripts/` (Cline)
    - Project root `scripts/` or `cbs_client.py` at root (standalone clone)

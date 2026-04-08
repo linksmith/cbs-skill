@@ -17,7 +17,7 @@ The zip is then available at:
 ## Project structure
 
 - `.claude-plugin/plugin.json` — Plugin manifest for Claude/Open/Kilo Code
-- `skills/cbs-statline-hackathon/SKILL.md` — Skill definition (plugin layout)
+- `skills/cbs-skill/SKILL.md` — Skill definition (plugin layout)
 - `scripts/cbs_client.py` — Python helper module (plugin layout)
 - `SKILL.md` — Root copy for tools that expect it here (Cursor, Cline, etc.)
 - `cbs_client.py` — Root copy of the helper module
