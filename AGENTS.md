@@ -1,4 +1,4 @@
-# CBS StatLine Hackathon Skill
+# CBS StatLine Skill
 
 > **Sync notice:** This file is duplicated as `CLAUDE.md` (for Claude Code). Keep both files in sync when making changes.
 

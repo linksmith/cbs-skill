@@ -1,5 +1,5 @@
 {
   "name": "cbs-statline-skill",
-  "description": "CBS StatLine open data skill for Dutch housing and energy transition data journalism",
+  "description": "CBS StatLine open data skill for exploring and analysing Dutch statistics on housing, energy transition, and neighbourhood-level data",
   "version": "1.0.0"
 }

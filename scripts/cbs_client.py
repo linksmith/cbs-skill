@@ -2,7 +2,7 @@
 CBS StatLine OData v4 Client
 
 A self-contained Python module for accessing CBS StatLine data via the OData v4 API.
-Designed for data journalism hackathons focused on housing and energy transition.
+Designed for exploring and analysing Dutch housing and energy transition data.
 
 Dependencies: requests, pandas
 Install: pip install requests pandas

@@ -1,4 +1,4 @@
-# CBS StatLine Hackathon Skill
+# CBS StatLine Skill
 
 > **Sync notice:** This file is duplicated as `AGENTS.md` (for Open Code, Kilo Code, and other agents). Keep both files in sync when making changes.
 

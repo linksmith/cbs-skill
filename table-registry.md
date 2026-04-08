@@ -2,8 +2,8 @@
 
 ## How to use this registry
 
-This is a curated list of CBS StatLine tables relevant to data journalism at
-the intersection of housing and energy transition. Tables are grouped by theme
+This is a curated list of CBS StatLine tables relevant to research and analysis
+at the intersection of housing and energy transition. Tables are grouped by theme
 and annotated with:
 
 - **ID**: The CBS table identifier (use this in API calls)
@@ -226,7 +226,7 @@ These tables explicitly combine housing characteristics with energy metrics.
 
 ## RECOMMENDED JOINS (Quick-win combinations)
 
-These are the highest-value cross-table analyses for the hackathon:
+These are the highest-value cross-table analyses:
 
 ### Join A: Solar adoption × Neighbourhood wealth
 - **Tables**: `84518NED` (zonnestroom wijk/buurt) + `83765NED` (kerncijfers)

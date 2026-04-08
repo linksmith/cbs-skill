@@ -1,6 +1,6 @@
 ---
 name: cbs-statline-skill
-description: "Skill for data journalism hackathons using CBS StatLine open data, focused on housing (woningen) and energy transition (energietransitie) in the Netherlands. Use this skill whenever the user wants to find, evaluate, download, analyse, or visualise CBS open data — especially tables about Dutch housing stock, energy labels, heat pumps, solar panels, gas-free homes, building permits, housing prices, or neighbourhood-level (wijk/buurt) statistics. Also trigger when the user mentions StatLine, CBS, OData, Dutch statistics, energielabel, warmtepomp, zonnepanelen, aardgasvrij, woningvoorraad, or any combination of housing and energy data for the Netherlands. This skill is designed for mixed audiences (journalists + coders) and generates complete, runnable Python code with explanations."
+description: "Skill for exploring and analysing CBS StatLine open data from the Netherlands. Use this skill whenever the user wants to find, evaluate, download, analyse, or visualise CBS open data. Also trigger when the user mentions StatLine, CBS, OData, or Dutch statistics. Includes a curated registry of housing and energy transition tables, but works with any CBS table. Generates complete, runnable Python code with explanations."
 ---
 repo: https://github.com/linksmith/cbs-statline-skill
 ---
@@ -9,13 +9,13 @@ repo: https://github.com/linksmith/cbs-statline-skill
 
 Turn an AI agent into a knowledgeable CBS StatLine research partner that can
 discover relevant tables, understand their structure, download and join data,
-perform analysis, and help frame findings as data journalism story angles —
-all focused on the intersection of **housing** and **energy transition** in
-the Netherlands.
+perform analysis, and help frame findings as story angles or research
+insights — all focused on the intersection of **housing** and **energy
+transition** in the Netherlands.
 
 ## Audience
 
-Mixed: data journalists who can read Python, and developers who may not know
+Mixed: researchers, analysts, journalists, and developers who may not know
 CBS data. Every code block you generate must be **complete and runnable** with
 clear comments. Never assume the user knows CBS conventions (period codes,
 region codes, metadata structure). Explain as you go.
@@ -37,7 +37,7 @@ Follow this sequence for any CBS data task:
 
 ### Step 1: Understand the question
 
-Restate the user's question as a data journalism hypothesis. Examples:
+Restate the user's question as a clear research hypothesis. Examples:
 - "Is the energy transition happening faster in wealthy neighbourhoods?"
 - "Which municipalities are falling behind on gas-free housing targets?"
 - "Do homes with solar panels also have better energy labels?"
@@ -216,8 +216,8 @@ cp <path-to-skill>/cbs_client.py .
 
 ## Output format
 
-For hackathon participants, always produce:
+Always produce:
 1. **A clear data question** (the hypothesis)
 2. **Complete Python code** in a single script or notebook
-3. **A finding summary** (2–3 sentences a journalist could use as a lede)
+3. **A finding summary** (2–3 sentences summarising the key insight)
 4. **Caveats** (data freshness, methodology notes, what the data can't tell you)

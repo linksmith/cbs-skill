@@ -202,11 +202,11 @@ The best data stories come from one of these patterns:
 - Always report the **number of observations** — a wijk with 50 homes is not the same as one with 5,000
 - Small areas (buurten) have high variance — consider aggregating to wijk or gemeente for reliable comparisons
 - CBS marks provisional data with `*` or `**` — mention this
-- Correlation is not causation, but data journalists can identify patterns worth investigating further
+- Correlation is not causation, but identifying patterns is worth investigating further
 
 ### Making it visual
 
-For hackathon presentations:
+For presentations:
 - One strong chart beats three mediocre ones
 - Chloropleth maps of the Netherlands are visually striking and immediately understood
 - Annotations matter: label the outliers, mark the national average

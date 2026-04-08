@@ -203,7 +203,7 @@ def filter_to_level(df, level, region_col="RegioS"):
 ## Rate limiting and courtesy
 
 CBS does not enforce strict rate limits but asks users to be respectful.
-For the hackathon:
+Best practices:
 - Add a small delay (0.5s) between consecutive API calls
 - Cache downloaded data locally (save to CSV/parquet) — don't re-download
   the same table repeatedly

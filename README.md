@@ -1,8 +1,8 @@
-# CBS StatLine Hackathon Skill
+# CBS StatLine Skill
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-An AI agent skill for data journalism hackathons using CBS StatLine open data, focused on housing (woningen) and energy transition (energietransitie) in the Netherlands. Works with Claude Code, Open Code, Kilo Code, Cursor, Windsurf, Cline, Aider, and 40+ other AI coding tools.
+An AI agent skill for exploring and analysing CBS StatLine open data from the Netherlands. Includes a curated registry of housing and energy transition tables, but works with any CBS table. Compatible with Claude Code, Open Code, Kilo Code, Cursor, Windsurf, Cline, Aider, and 40+ other AI coding tools.
 
 ## Overview
 
@@ -11,7 +11,7 @@ This skill transforms an AI agent into a knowledgeable CBS StatLine research par
 - Discover relevant tables from the CBS catalog
 - Understand table structure and metadata
 - Download and join data from multiple tables
-- Perform analysis and help frame findings as data journalism story angles
+- Perform analysis and help frame findings as story angles or research insights
 
 The skill focuses on the intersection of **housing** and **energy transition** in the Netherlands, with curated tables covering:
 
@@ -286,7 +286,7 @@ cbs-statline-skill/
 │   └── cbs_client.py         # Python helper module for CBS OData v4 API
 ├── SKILL.md                  # Root copy (for tools that expect it here)
 ├── table-registry.md         # Curated list of ~35 vetted tables with join keys
-├── analysis-recipes.md       # Story templates for data journalism
+├── analysis-recipes.md       # Story templates and analysis patterns
 ├── odata-v4-guide.md         # OData v4 API patterns and filtering
 ├── geo-pdok.md               # Geographic visualization with PDOK
 └── evals.json                # Evaluation prompts for skill testing
