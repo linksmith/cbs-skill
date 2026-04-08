@@ -53,11 +53,12 @@ Thumbs.db
 # Local config
 .env
 .env.local
-analyze_woningdruk.py
-kerncijfers_wijken_buurten_2017_wide.csv
-kerncijfers_wijken_buurten_2017.csv
-visualise_woningdruk.py
-WONINGDRUK_ANALYSE_RAPPORT.md
-woningdruk_analyse_rapport.txt
-woningdruk_detailed_analysis.py
-woningdruk_visualisaties.png
+
+# Generated analysis output (from running the skill)
+*.csv
+*.png
+*.txt
+workshop-*.md
+
+# Claude Code local state
+.claude/
